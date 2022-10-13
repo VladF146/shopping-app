@@ -46,7 +46,6 @@ export default function Home() {
         return e;
       }
     });
-
     setLists([
       ...tempList.filter((e) => {
         if (e.amount > 0) {
@@ -109,8 +108,6 @@ export default function Home() {
           return a + b.amount * b.price;
         }, 0)} €`}
         {JSON.stringify(lists)}
-        <br></br>
-        {JSON.stringify(idList)}
       </p>
     </div>
   );
