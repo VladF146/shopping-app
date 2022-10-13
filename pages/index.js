@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 
@@ -17,6 +15,7 @@ export default function Home() {
     },
     { id: "ps5-3", name: "60 TV Fernsehen", price: 899 },
   ];
+
   const [lists, setLists] = useState([]);
   const [idList, setIdList] = useState([]);
 
@@ -47,8 +46,17 @@ export default function Home() {
         return e;
       }
     });
-    setIdList([...idList.filter((e) => e !== item.id)]);
-    setLists([...tempList.filter((e) => e.amount > 0)]);
+
+    setLists([
+      ...tempList.filter((e) => {
+        if (e.amount > 0) {
+          return true;
+        } else {
+          setIdList([...idList.filter((e) => e !== item.id)]);
+          return false;
+        }
+      }),
+    ]);
   }
 
   function deleteItem(item) {
@@ -100,7 +108,9 @@ export default function Home() {
         {`Sum: ${lists.reduce((a, b) => {
           return a + b.amount * b.price;
         }, 0)} €`}
-        {}
+        {JSON.stringify(lists)}
+        <br></br>
+        {JSON.stringify(idList)}
       </p>
     </div>
   );
